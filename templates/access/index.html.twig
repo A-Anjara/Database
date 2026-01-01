@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+{% block title %}
+BSpay- Authorisation
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block body %}
+<form  method="POST" class="block w-full  flex flex-col items-center gap-2">
+    <input type="text" name="password" class="block border border-teal-950 bg-white w-min-1/2" placeholder="Entrez le Mot de Passe!">
+    <button type="submit" class="bg-teal-950 text-white p-2">Valider</button>
+</form>
+
+{% endblock %}

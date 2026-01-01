@@ -1,0 +1,54 @@
+{
+    "app": {
+        "path": "\/assets\/app-TNXHCQF.js",
+        "type": "js"
+    },
+    "\/assets\/stimulus_bootstrap.js": {
+        "path": "\/assets\/stimulus_bootstrap-xCO4u8H.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/stimulus-bundle\/controllers.js": {
+        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-5daBh7v.js",
+        "type": "js"
+    },
+    "\/assets\/controllers\/form_controller.js": {
+        "path": "\/assets\/controllers\/form_controller-8rkKCUl.js",
+        "type": "js"
+    },
+    "\/assets\/controllers\/date_controller.js": {
+        "path": "\/assets\/controllers\/date_controller-Omvd99g.js",
+        "type": "js"
+    },
+    "\/assets\/controllers\/hello_controller.js": {
+        "path": "\/assets\/controllers\/hello_controller-dPdQ1sr.js",
+        "type": "js"
+    },
+    "\/assets\/controllers\/modal_controller.js": {
+        "path": "\/assets\/controllers\/modal_controller-B-rwRGj.js",
+        "type": "js"
+    },
+    "\/assets\/controllers\/csrf_protection_controller.js": {
+        "path": "\/assets\/controllers\/csrf_protection_controller-6ynUAeX.js",
+        "type": "js"
+    },
+    "\/assets\/styles\/app.css": {
+        "path": "\/assets\/styles\/app-xhSrzq2.css",
+        "type": "css"
+    },
+    "@hotwired\/stimulus": {
+        "path": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-S4zNcea.js",
+        "type": "js"
+    },
+    "@symfony\/stimulus-bundle": {
+        "path": "\/assets\/@symfony\/stimulus-bundle\/loader-V1GtHuK.js",
+        "type": "js"
+    },
+    "qrcode": {
+        "path": "\/assets\/vendor\/qrcode\/qrcode.index-ia4WAuY.js",
+        "type": "js"
+    },
+    "dijkstrajs": {
+        "path": "\/assets\/vendor\/dijkstrajs\/dijkstrajs.index-IRqTMOa.js",
+        "type": "js"
+    }
+}

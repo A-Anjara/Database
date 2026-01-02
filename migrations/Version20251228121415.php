@@ -36,7 +36,7 @@ final class Version20251228121415 extends AbstractMigration
         ('Depot',1),
         ('Retrait',-1),
         ('Investissement Sikla 0',-1),
-        ('Recompense Sikla 0',1)
+        ('Recompense Sikla 0',1);
         ");
     }
 

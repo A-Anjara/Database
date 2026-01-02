@@ -16,6 +16,8 @@ namespace App\Service;
 use Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Shuchkin\SimpleXLSX;
+use Shuchkin\SimpleXLSXGen;
 
 final class FileService
 {
@@ -41,13 +43,25 @@ final class FileService
 
 
         try {
-            $spreadsheet = IOFactory::load($path);
-            $worksheet = $spreadsheet->getActiveSheet();
-            $result = $worksheet->toArray();
-            array_shift($result);
+            $rows = SimpleXLSX::parse($path);
+            $rows = $rows->rows();
+            foreach ($rows as &$row) {
+                foreach ($row as &$cell) { /// NOT AN ERROR 
+                    if ($cell === '') {
+                        $cell = null;
+                    }
+                }
+            }
 
-            
-            return $result;
+
+            // PHP SPREADSHEET
+            // $spreadsheet = IOFactory::load($path);
+            // $worksheet = $spreadsheet->getActiveSheet();
+            // $result = $worksheet->toArray();
+            array_shift($rows);
+
+
+            return $rows;
         } catch (Exception $e) {
             throw new Exception("Fichier Excel invalide !");
         }
@@ -60,25 +74,34 @@ final class FileService
 
     public function exportUserData(array $datas)
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        sleep(1);
 
-        // Header Texts
-        $headers = array_keys($datas[0] ?? []);
-        $columnindex = 1;
-        foreach ($headers as $key => $value) {
-            $sheet->setCellValue([$key + 1, 1], $value);
-        }
+        // SIMPLE XLSX
+        
+        $xlsx = SimpleXLSXGen::fromArray([array_keys($datas[0]),...$datas]);
+        return $xlsx;
+        
 
-        // Populating the excel file
-        foreach ($datas as $row => $data) {
-            foreach ($data as $column) {
-                $sheet->setCellValue([$columnindex++, $row + 2], $column);
-            }
-            $columnindex = 1;
-        }
+        /// PHP spreadsheet
 
-        return $spreadsheet;
+        // $spreadsheet = new Spreadsheet();
+        // $sheet = $spreadsheet->getActiveSheet();
+        // sleep(1);
+
+        // // Header Texts
+        // $headers = array_keys($datas[0] ?? []);
+        // $columnindex = 1;
+        // foreach ($headers as $key => $value) {
+        //     $sheet->setCellValue([$key + 1, 1], $value);
+        // }
+
+        // // Populating the excel file
+        // foreach ($datas as $row => $data) {
+        //     foreach ($data as $column) {
+        //         $sheet->setCellValue([$columnindex++, $row + 2], $column);
+        //     }
+        //     $columnindex = 1;
+        // }
+
+        // return $spreadsheet;
     }
 }

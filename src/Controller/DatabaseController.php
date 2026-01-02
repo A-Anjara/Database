@@ -36,8 +36,6 @@ final class DatabaseController extends AbstractController
         $this->em = $em;
         $this->file_service = new FileService();
         $this->database_application = new DataBaseApplication($em);
-        
-
     }
 
     #[Route('/database', name: 'app_database')]
@@ -58,11 +56,10 @@ final class DatabaseController extends AbstractController
 
 
             try {
-                
+
                 $this->database_application->parse_datetime($file->getClientOriginalName());
                 $this->database_application->insertUsers($this->file_service->parseExcel($file->getPathName()));
-            } 
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 dd($e);
                 $error = $e->getMessage();
             }
@@ -102,25 +99,28 @@ final class DatabaseController extends AbstractController
     #[Route('/export', name: 'export')]
     public function export(): ?Response
     {
-            $spreadsheet = $this->file_service->exportUserData($this->em->getRepository(Utilisateur::class)->getExport());
 
-            $response = new StreamedResponse(function () use ($spreadsheet) {
-                $writer = new Xlsx($spreadsheet);
-                $writer->save('php://output');
-            });
+        $xlsx = $this->file_service->exportUserData($this->em->getRepository(Utilisateur::class)->getExport());
+        $response = new StreamedResponse(function () use ($xlsx) {
+            $xlsx->downloadAs("utilisateursBspay");
+            
+        });
+
+        //PHP SPREAD SHEET
+        // $spreadsheet = $this->file_service->exportUserData($this->em->getRepository(Utilisateur::class)->getExport());
+
+        // $response = new StreamedResponse(function () use ($spreadsheet) {
+        //     $writer = new Xlsx($spreadsheet);
+        //     $writer->save('php://output');
+        // });
 
 
-            $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'utilisateursBspay.xlsx');
+        $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'utilisateursBspay.xlsx');
 
-            $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            $response->headers->set('Content-Disposition', $disposition);
-            $response->headers->set('Cache-Control', 'max-age=0');
+        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        $response->headers->set('Content-Disposition', $disposition);
+        $response->headers->set('Cache-Control', 'max-age=0');
 
         return $response;
     }
-
-
-    
 }
-
-
